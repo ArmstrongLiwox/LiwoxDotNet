@@ -1,97 +1,102 @@
 import { defineCollection, z } from 'astro:content';
 
-const staffCollection = defineCollection({
-  type: 'content',
-  schema: z.object({
-    name: z.string(),
-    title: z.string(), // e.g., "Senior Pastor", "Deaconess"
-    image: z.string().startsWith('/uploads/staff/'),
-    email: z.string().email().optional(),
-    phone: z.string().optional(),
-    bio: z.string().optional(), // Short bio in frontmatter
-    order: z.number().default(0),
-    draft: z.boolean().default(false),
-  }),
-});
-
-const eventsCollection = defineCollection({
+// =====================================
+// ✅ Courses (replaces "sermons")
+// Example: "Fund Your Builds With Forex"
+// =====================================
+const coursesCollection = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    date: z.date(), // Event start date
-    endDate: z.date().optional(), // Event end date
-    time: z.string().optional(), // e.g., "09:00 AM - 11:00 AM"
-    location: z.string(),
-    image: z.string().startsWith('/uploads/events/'),
-    summary: z.string(),
-    tags: z.array(z.string()).optional(),
-    registrationLink: z.string().url().optional(),
-    registrationRequired: z.boolean().default(false),
-    draft: z.boolean().default(false),
-  }),
-});
-
-const sermonsCollection = defineCollection({
-  type: 'content',
-  schema: z.object({
-    title: z.string(),
-    slug: z.string().optional(), // Auto-generated if not provided
+    slug: z.string().optional(),
     date: z.date(),
-    speaker: z.string(),
-    series: z.string().optional(),
-    scripture: z.string().optional(),
-    audioUrl: z.string().url().optional(),
-    videoUrl: z.string().url().optional(),
-    image: z.string().startsWith('/uploads/sermons/').optional(), // Thumbnail
+    author: z.string().default("Arc. Armstrong Uzoagwa"),
+    courseType: z.string().default("Free Course"),
+    duration: z.string().optional(), // e.g., "45 minutes"
+    level: z.enum(['Beginner', 'Intermediate', 'Advanced']).optional(),
+    image: z.string().startsWith('/images/').optional(),
     summary: z.string().optional(),
-    tags: z.array(z.string()).optional(),
+    tags: z.array(z.string()).default([]),
+    videoUrl: z.string().url().optional(), // Embedded YouTube
     draft: z.boolean().default(false),
   }),
 });
 
-const ministriesCollection = defineCollection({
-  type: 'content',
-  schema: z.object({
-    name: z.string(),
-    logo: z.string().startsWith('/uploads/ministries/').optional(),
-    summary: z.string(),
-    coordinator: z.string().optional(),
-    contact: z.string().optional(), // Email or text
-    schedule: z.string().optional(),
-    order: z.number().optional(),
-    draft: z.boolean().default(false),
-  }),
-});
-
+// =====================================
+// ✅ Blog Posts (replaces "ministries" as categories)
+// =====================================
 const blogCollection = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
     slug: z.string().optional(),
     pubDate: z.date(),
-    description: z.string(), // Short description for previews
-    author: z.string().default("Church Staff"),
+    description: z.string(),
+    author: z.string().default("Arc. Armstrong Uzoagwa"),
     image: z.object({
-      url: z.string().startsWith('/uploads/blog/'),
-      alt: z.string()
+      url: z.string().startsWith('/images/'),
+      alt: z.string(),
     }).optional(),
-    tags: z.array(z.string()).default(["general"]),
+    tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
   }),
 });
 
-const siteInfoCollection = defineCollection({
-  type: 'content', // Could be 'data' if only frontmatter is needed
+// =====================================
+// ✅ Webinars (replaces "events")
+// =====================================
+const webinarsCollection = defineCollection({
+  type: 'content',
   schema: z.object({
-    title: z.string(), // For identifying the content block
+    title: z.string(),
+    date: z.date(),
+    time: z.string().optional(), // e.g., "7:00 PM UTC"
+    location: z.string().default("Online"),
+    image: z.string().startsWith('/images/').optional(),
+    summary: z.string(),
+    tags: z.array(z.string()).optional(),
+    registrationLink: z.string().url().optional(),
+    requiresRegistration: z.boolean().default(true),
+    draft: z.boolean().default(false),
   }),
 });
 
+// =====================================
+// ✅ Team / Profile (replaces "staff")
+// =====================================
+const teamCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    name: z.string(),
+    title: z.string(), // e.g., "Architect | DevOps Engineer"
+    image: z.string().startsWith('/images/').optional(),
+    email: z.string().email().optional(),
+    phone: z.string().optional(),
+    bio: z.string().optional(),
+    order: z.number().default(0),
+    draft: z.boolean().default(false),
+  }),
+});
+
+// =====================================
+// ✅ Categories (optional — if you want structured content types)
+// =====================================
+const categoriesCollection = defineCollection({
+  type: 'data', // Uses `.json` or `.ts` files, not Markdown
+  schema: z.object({
+    name: z.string(),
+    description: z.string(),
+    icon: z.string().optional(), // e.g., "devops.svg"
+  }),
+});
+
+// =====================================
+// ✅ Export Renamed Collections
+// =====================================
 export const collections = {
-  staff: staffCollection,
-  events: eventsCollection,
-  sermons: sermonsCollection,
-  ministries: ministriesCollection,
+  courses: coursesCollection,
   blog: blogCollection,
-  siteInfo: siteInfoCollection,
+  webinars: webinarsCollection,
+  team: teamCollection,
+  categories: categoriesCollection,
 };
