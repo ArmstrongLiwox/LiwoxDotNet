@@ -1,0 +1,22 @@
+---
+import Navigation from "./Navigation.astro";
+---
+
+<header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md shadow-sm">
+  <div class="container flex items-center justify-between h-15">
+    <a href="/" class="text-2xl font-bold text-primary-800 font-serif flex items-center">
+      <span class="sr-only">DotNet</span>
+      <img
+        src="/logo.png"
+        alt="Liwox"
+        class="h-12 w-auto mr-2"
+        style="max-height: 3rem;"
+        loading="lazy"
+        decoding="async"
+      />
+      <span class="text-primary-800">DotNet</span>
+    </a>
+    
+    <Navigation />
+  </div>
+</header>

@@ -1,0 +1,162 @@
+---
+import Navigation from "./Navigation.astro";
+
+// Footer navigation groups
+const footerNavs = [
+  {
+    title: "Tools",
+    items: [
+      // { text: "About Us", href: "/about-us" },
+      // { text: "I'm New", href: "/im-new" },
+      // { text: "Staff", href: "/staff" },
+      // { text: "Contact", href: "/contact" },
+    ],
+  },
+  {
+    title: "Posts",
+    items: [
+      // { text: "Sermons", href: "/sermons" },
+      // { text: "Events", href: "/events" },
+      // { text: "Blog", href: "/blog" },
+      // { text: "Ministries", href: "/ministries" },
+    ],
+  },
+  {
+    title: "Courses",
+    items: [
+      // { text: "Giving", href: "/giving" },
+      // { text: "Prayer Request", href: "/contact#prayer" },
+      // { text: "Newsletter", href: "/contact#newsletter" },
+      // { text: "Volunteer", href: "/im-new#volunteer" },
+    ],
+  },
+];
+
+// Social media links (expanded)
+const socialLinks = [
+  { 
+    name: "Facebook",
+    href: "https://www.facebook.com/armstrong.uzoagwa", 
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+    </svg>`
+  },
+  { 
+    name: "Instagram", 
+    href: "https://www.instagram.com/liwoxdotnet", 
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+    </svg>`
+  },
+  { 
+    name: "YouTube", 
+    href: "https://www.youtube.com/@liwoxdotnet", 
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+    </svg>`
+  },
+  { 
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/armstrong-uzoagwa",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M4.983 3.5C3.327 3.5 2 4.828 2 6.484 2 8.14 3.327 9.468 4.983 9.468c1.655 0 2.983-1.327 2.983-2.984C7.966 4.828 6.638 3.5 4.983 3.5zM2.4 21.5h5.167v-9.333H2.4V21.5zM8.667 12.167c0-1.107.017-2.023.034-2.667h-5.2V21.5h5.166v-4.966c0-1.252.023-2.504 1.726-2.504 1.697 0 1.74 1.32 1.74 2.588v4.882h5.167V15.12c0-3.077-1.646-4.513-3.842-4.513-1.77 0-2.562 1.018-3.001 1.732h.043v-1.48H8.667z"/>
+    </svg>`
+  },
+  {
+    name: "Twitter",
+    href: "https://twitter.com/ArmStrongUzo",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M24 4.557a9.93 9.93 0 0 1-2.828.775 4.932 4.932 0 0 0 2.165-2.724c-.951.564-2.005.974-3.127 1.195a4.917 4.917 0 0 0-8.38 4.482C7.691 8.095 4.066 6.13 1.64 3.161c-.542.929-.855 2.004-.855 3.17 0 2.188 1.116 4.116 2.826 5.247A4.904 4.904 0 0 1 .964 9.097v.062a4.919 4.919 0 0 0 3.946 4.827c-.427.116-.876.178-1.339.178-.327 0-.645-.032-.955-.089a4.935 4.935 0 0 0 4.604 3.417A9.867 9.867 0 0 1 0 21.543a13.94 13.94 0 0 0 7.548 2.209c9.051 0 14-7.496 14-13.986 0-.21 0-.423-.015-.634A9.936 9.936 0 0 0 24 4.557z"/>
+    </svg>`
+  },
+  {
+    name: "Pinterest",
+    href: "https://www.pinterest.com/liwoxdotnet",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12.004 2.003c-5.523 0-10 4.477-10 10 0 4.418 2.886 8.166 6.926 9.499-.096-.808-.182-2.051.038-2.934.199-.812 1.278-5.168 1.278-5.168s-.326-.652-.326-1.616c0-1.515.879-2.648 1.973-2.648.929 0 1.378.696 1.378 1.531 0 .933-.594 2.326-.9 3.624-.257 1.085.544 1.968 1.614 1.968 1.936 0 3.428-2.042 3.428-4.988 0-2.609-1.877-4.436-4.557-4.436-3.108 0-4.942 2.335-4.942 4.748 0 .945.362 1.96.815 2.511.09.11.104.205.076.316-.083.332-.264 1.058-.3 1.205-.049.199-.159.242-.369.146-1.374-.563-2.23-2.328-2.23-3.749 0-3.054 2.485-6.726 7.419-6.726 3.963 0 6.574 2.869 6.574 5.956 0 4.074-2.264 7.117-5.617 7.117-1.124 0-2.181-.606-2.543-1.292l-.693 2.638c-.21.803-.624 1.803-.928 2.416.699.216 1.438.334 2.21.334 5.522 0 10-4.477 10-10 0-5.522-4.478-10-10-10z"/>
+    </svg>`
+  },
+  {
+    name: "WhatsApp",
+    href: "https://wa.me/23407012834124",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M20.52 3.48A12.07 12.07 0 0 0 12 0C5.373 0 0 5.373 0 12c0 2.068.53 4.052 1.53 5.82L0 24l6.29-1.65A12.051 12.051 0 0 0 12 24c6.627 0 12-5.373 12-12 0-3.21-1.25-6.23-3.48-8.52zM12 22c-1.86 0-3.68-.51-5.24-1.47l-.37-.22-3.73.98.99-3.64-.24-.38A9.93 9.93 0 0 1 2 12c0-5.514 4.486-10 10-10 2.477 0 4.806.91 6.6 2.56A9.97 9.97 0 0 1 22 12c0 5.514-4.486 10-10 10zm5.41-7.07c-.29-.14-1.71-.84-1.97-.93-.26-.1-.45-.14-.64.14-.19.27-.74.93-.91 1.12-.17.19-.34.21-.63.07-.29-.14-1.23-.45-2.35-1.43-.87-.78-1.46-1.74-1.64-2.03-.17-.29-.02-.44.13-.57.13-.13.29-.34.43-.51.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.07-.14-.64-1.55-.88-2.12-.23-.56-.47-.49-.64-.5-.16-.01-.36-.01-.55-.01-.19 0-.5.07-.77.36-.27.28-1.02 1-.98 2.43.04 1.43.94 2.83 1.07 3.02.13.18 2.01 3.2 4.86 4.36.68.29 1.2.46 1.61.59.67.21 1.28.18 1.76.11.54-.08 1.71-.7 1.95-1.37.24-.67.24-1.24.17-1.35-.07-.11-.26-.17-.55-.32z"/>
+    </svg>`
+  },
+];
+
+// Current year for copyright
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-gray-900 text-white pt-16 pb-8">
+  <div class="container">
+    <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-8">
+      <!-- Brand and Social -->
+      <div class="flex flex-col md:flex-row items-center gap-6">
+        <a href="/" class="text-2xl font-bold text-white font-serif inline-flex items-center">
+          <span class="sr-only">DotNet</span>
+          <img
+            src="/logo.png"
+            alt="Liwox"
+            class="h-12 w-auto mr-2"
+            style="max-height: 3rem;"
+            loading="lazy"
+            decoding="async"
+          />
+          <span>LiwoxDotNet</span>
+        </a>
+        <!-- Social Links -->
+        <div class="flex space-x-4 mt-4 md:mt-0 flex-wrap">
+          {
+            socialLinks.map((link) => (
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-gray-400 hover:text-white transition-colors"
+                aria-label={link.name}
+              >
+                <Fragment set:html={link.icon} />
+              </a>
+            ))
+          }
+        </div>
+      </div>
+      <!-- Footer Navigation Links -->
+      <div class="flex flex-col md:flex-row gap-8 mt-8 md:mt-0">
+        {
+          footerNavs.map((group) => (
+            <div>
+              <h4 class="text-lg font-bold mb-2 text-white">{group.title}</h4>
+              <ul class="space-y-1">
+                {group.items.length === 0 ? (
+                  <li class="text-gray-500 text-sm italic">Coming soon</li>
+                ) : (
+                  group.items.map((item) => (
+                    <li>
+                      <a 
+                        href={item.href} 
+                        class="text-gray-300 hover:text-primary-300 transition-colors"
+                      >
+                        {item.text}
+                      </a>
+                    </li>
+                  ))
+                )}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <!-- Copyright -->
+    <div class="pt-8 mt-8 border-t border-gray-800 text-center text-gray-400 text-sm">
+      <p>&copy; {currentYear} LiwoxDotNet. All rights reserved.</p>
+      <p class="mt-2">
+        <a href="https://liwox.net" class="hover:text-primary-300">Privacy Policy Page || </a>
+        <a href="https://liwox.net" class="hover:text-primary-300">Terms of Service Page</a>
+      </p>
+    </div>
+  </div>
+</footer>
